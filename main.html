@@ -7,7 +7,51 @@
 
   <body>
     <!-- write the body here -->
+	  <form id="userForm">
+		  <label for="name">Name: </label>
+		  <input type="text" id="name" name="name" required />
+		  <br/><br/>
+		  <label for="age"> Age: </label>
+		  <input type="number" id="age" name="age" required />
+		  <br/><br/>
+		  <button id= "btn" type="submit">Submit</button>
+	  </form>
+		  
 
-    <script type="text/javascript" src="./script.js"></script>
+    <script type="text/javascript" src="./script.js">
+		//add event listener to the form submit event document
+		.getElementById("userForm")
+		.addEventListener("submit", function (e)  {
+			e.preventDefault(); //prevent default form submission behaviour
+
+			//get the input values
+			const name = document.getElementById("name").value;
+			const age = document.getElementById("age").value;
+
+			//validate inputs are not empty
+			if(name === "" || age === "") {
+				alert("Please fill in both fields.");
+				return;
+			}
+
+
+			//create a new promise for the form submission
+			new Promise(function (resolve, reject) {
+				setTimeout(() => {
+					if(age >= 18) {
+						resolve();
+					} else {
+						reject();
+					}
+				}, 4000); //resolve after 4 sec
+			})
+			.then(function () {
+				alert(`Welcome, ${name}. You can vote.`);
+			})
+			.catch(function () {
+				alert(`Oh sorry ${name}. You aren't old enough.`);
+			});
+		});
+	</script>
   </body>
 </html>
